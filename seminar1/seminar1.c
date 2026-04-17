@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 typedef struct Carte
 {
     char *titlu;
@@ -50,7 +51,7 @@ void afisareCarti(Carte *carti, int nrCarti)
     }
 }
 
-dezalocare(Carte **vectorCarti, int *nrCarti)
+void dezalocare(Carte **vectorCarti, int *nrCarti)
 {
     for (int i = 0; i < *nrCarti; i++)
     {
@@ -61,7 +62,7 @@ dezalocare(Carte **vectorCarti, int *nrCarti)
     *vectorCarti = NULL;
 }
 
-void main()
+int main()
 {
     // carte.txt:
     // MiculPrint 132 35.2
@@ -92,4 +93,5 @@ void main()
     }
 
     dezalocare(&vectorCarti, &nrCarti);
+    return 0;
 }

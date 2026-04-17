@@ -37,9 +37,7 @@ void inserareLaSfarsit(Nod **cap, Carte c)
             aux=aux->next;
         }
         aux->next=nou;
-
     }
-    
 }
 
 Carte citireCarte(FILE *file)
@@ -131,6 +129,6 @@ int main()
 
     printf("\nPretul mediu pentru o carte este %.2f lei", pretMediuCarte(cap));
     dezalocare(&cap);
-    printf("%s", titlulCartii(cap, 54.20)) ;
+    printf("%s", titlulCartii(cap, 54.20));
     return 0;
 }
