@@ -11,12 +11,12 @@ typedef struct Carte
     float pret;
 } Carte;
 
-struct Nod{
+struct Nod {
     Carte info;
     Nod *next;
 };
 
-void inserareLaInceput(Nod **cap, Carte c){
+void inserareLaInceput(Nod **cap, Carte c) {
     Nod *nou = (Nod*) malloc(sizeof(Nod));
     nou->info=c; //shallow copy util
     nou->next= *cap;
@@ -121,6 +121,7 @@ char* titlulCartii(Nod *cap, float pret){
     strcpy(titlu, "Nu s-a gasit");
     return titlu;
 }
+
 int main()
 {
     Nod *cap = citireListaCarti("carti.txt");
