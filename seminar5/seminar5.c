@@ -94,6 +94,7 @@ void conversieDinCoadaInVector(Nod **coada, Carte **vectorCarti, int nrCarti){
 int main()
 {
     Nod *stiva = NULL;
+
     push(&stiva, initCarte("Fratii Kamarazov", 320, 45.5));
     push(&stiva, initCarte("Norwegian Wood", 360, 60));
     push(&stiva, initCarte("Pride & Prejudice", 320, 45.5));
@@ -108,6 +109,7 @@ int main()
     }
 
     Nod *coada = NULL;
+    
     put(&coada, initCarte("Fratii Kamarazov", 320, 45.5));
     put(&coada, initCarte("Norwegian Wood", 360, 60));
     put(&coada, initCarte("Pride & Prejudice", 320, 45.5));
