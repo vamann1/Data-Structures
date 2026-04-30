@@ -155,5 +155,6 @@ int main()
     parcurgereTabela(tabela);
     int nrPagini = 122;
     printf("Pretul mediu pentru o carte cu %d numar pagini este %.2f", nrPagini, pretMediuDupaNrPagini(tabela, nrPagini));
-        dezalocareTabela(tabela);
+    
+    dezalocareTabela(tabela);
 }
