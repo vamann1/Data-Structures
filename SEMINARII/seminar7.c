@@ -129,7 +129,6 @@ int main()
     inserareInABC(&rad, initCarte(8, "Carte6", 210, 60.0));
     inserareInABC(&rad, initCarte(11, "Carte7", 190, 55.0));
 
-
     printf("\nParcurgere inordine:\n");
     inOrdine(rad);
 
