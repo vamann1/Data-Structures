@@ -3,8 +3,6 @@
 //FIFO - inserare si extragere sunt inversate
 // get = pop;
 
-
-
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,12 +23,12 @@ struct Nod
     Nod *next;
 };
 
-void push(Nod **varf, Carte c)
+void push(Nod **stiva, Carte c)
 {
     Nod *nou = (Nod *)malloc(sizeof(Nod));
     nou->info = c; // shallow copy util
-    nou->next = *varf;
-    *varf = nou;
+    nou->next = *stiva;
+    *stiva = nou;
 }
 
 void put(Nod **prim, Carte c)
@@ -69,15 +67,18 @@ void afisareCarte(Carte carte)
     printf("Titlu: %s, nrPagini: %d, pret: %.2f. \n", carte.titlu, carte.nrPagini, carte.pret);
 }
 
-Carte pop(Nod** stiva){
+Carte pop(Nod** stiva)
+{
     if(*stiva==NULL)
-        return initCarte(NULL, 0, 0);
-    Carte c = (*stiva)->info;
-    //deep copy: Carte c = initCarte((*stiva)->info.titlu, (*stiva)->info.nrPagini, (*stiva)->info.pret);
+    {
+        Carte c = {NULL, 0, 0};
+        return c;
+    }
+    Carte c2 = initCarte((*stiva)->info.titlu, (*stiva)->info.nrPagini, (*stiva)->info.pret);
     Nod *copie = *stiva;
     *stiva = (*stiva)->next;
     free(copie);
-    return c;
+    return c2;
 }
 
 void conversieDinCoadaInVector(Nod **coada, Carte **vectorCarti, int nrCarti){
@@ -88,8 +89,6 @@ void conversieDinCoadaInVector(Nod **coada, Carte **vectorCarti, int nrCarti){
         (*vectorCarti)[i]= pop(coada);
         i++;
     }
-
-
 }
 
 int main()
@@ -125,7 +124,7 @@ int main()
     int nrCarti = 4;
     conversieDinCoadaInVector(&coada, &vectorCarti, nrCarti);
     if(vectorCarti != NULL){
-        printf("\nTraversare vector");
+        printf("\nTraversare vector\n");
         for(int i = 0; i<nrCarti; i++){
             afisareCarte(vectorCarti[i]);
             free(vectorCarti[i].titlu);

@@ -22,13 +22,12 @@ struct Nod
 void inserareLaInceput(Nod **cap, Nod **coada, Carte c)
 {
     Nod *nou = (Nod *)malloc(sizeof(Nod));
-    nou->info = c;    // shallow copy util
-    nou->next = *cap; // prima legatura
+    nou->info = c; // shallow copy util
+    nou->next = *cap;
     nou->prev = NULL;
     if (*cap == NULL)
     {
-        *cap = nou;
-        *coada = nou;
+        *cap = *coada = nou;
     }
     else
     {
@@ -45,8 +44,7 @@ void inserareLaSfarsit(Nod **cap, Nod **coada, Carte c)
     nou->prev = *coada;
     if ((*cap) == NULL)
     {
-        *cap = nou;
-        *coada = nou;
+        *cap = *coada = nou;
     }
     else
     {
@@ -73,7 +71,6 @@ void afisareCarte(Carte carte)
 
 void afisareListaCarti(Nod *cap)
 {
-    printf("\n");
     while (cap != NULL)
     {
         afisareCarte(cap->info);
@@ -83,26 +80,11 @@ void afisareListaCarti(Nod *cap)
 
 void afisareInversaListaCarti(Nod *coada)
 {
-    printf("\n");
     while (coada != NULL)
     {
         afisareCarte(coada->info);
         coada = coada->prev;
     }
-}
-
-void afisareListaCircularaCarti(Nod *cap, Nod *coada){
-    printf("\n");
-    if(!cap){
-        return;
-    }
-    Nod *aux = cap;
-    do {
-        afisareCarte(cap->info);
-        cap = cap->next;
-    }
-    while(cap != aux);
-
 }
 
 void dezalocare(Nod **cap, Nod **coada)
@@ -117,15 +99,15 @@ void dezalocare(Nod **cap, Nod **coada)
     *coada = NULL;
 }
 
-float pretMediuCarte(Nod *cap)
+float pretMediuCarte(Nod *coada)
 {
     int nrCarti = 0;
     float sumaPreturi = 0;
-    while (cap != NULL)
+    while (coada != NULL)
     {
-        sumaPreturi += cap->info.pret;
+        sumaPreturi += coada->info.pret;
         nrCarti++;
-        cap = cap->next;
+        coada = coada->prev;
     }
 
     if (nrCarti != 0)
@@ -138,43 +120,76 @@ float pretMediuCarte(Nod *cap)
     }
 }
 
-float pretMaximCarte(Nod *cap)
+void afisareListaCircularaCarti(Nod *cap)
 {
-
-    float  max = 0;
-    Nod *aux =cap;
-    do 
+    if (!cap)
     {
-    if(cap->info.pret >= max)
-        max = cap->info.pret;
-    cap = cap->next;
+        return;
     }
-    while (cap != aux);
-    return max;
-    
+    Nod *aux = cap;
+    afisareCarte(cap->info);
+    cap = cap->next;
+    while (cap != aux)
+    {
+        afisareCarte(cap->info);
+        cap = cap->next;
+    }
+}
+
+void afisareListaCircularaCarti2(Nod *cap)
+{
+    if (!cap)
+    {
+        return;
+    }
+    Nod *aux = cap;
+    do
+    {
+        afisareCarte(cap->info);
+        cap = cap->next;
+
+    } while (cap != aux);
+}
+
+float pretCarteMaximListaCirculara(Nod *cap)
+{
+    if (!cap)
+    {
+        return 0.0;
+    }
+    float pretMax = 0;
+    Nod *aux = cap;
+    do
+    {
+        if (pretMax < cap->info.pret)
+            pretMax = cap->info.pret;
+        cap = cap->next;
+
+    } while (cap != aux);
+
+    return pretMax;
 }
 
 int main()
 {
     Nod *cap = NULL, *coada = NULL;
-    inserareLaSfarsit(&cap, &coada, initCarte("Micul print", 70, 20.5));
-    inserareLaSfarsit(&cap, &coada, initCarte("Norwegian Wood", 650, 40.2));
-    inserareLaSfarsit(&cap, &coada, initCarte("Picture of Dorian Gray", 234, 46.9));
+    inserareLaSfarsit(&cap, &coada, initCarte("MiculPrint", 132, 35.2));
+    inserareLaSfarsit(&cap, &coada, initCarte("Nuntasii", 122, 46.9));
+    inserareLaSfarsit(&cap, &coada, initCarte("Confess", 126, 34.3));
 
     afisareInversaListaCarti(coada);
 
-    printf("\nPretul mediu pentru o carte este %.2f lei!", pretMediuCarte(cap));
+    printf("\nPretul mediu pentru o carte este %.2f lei!\n\n", pretMediuCarte(coada));
 
-    //LDI circulara
-    coada->next=cap;
-    cap->prev=coada;
+    // LDI circulara
+    coada->next = cap;
+    cap->prev = coada;
 
-    //dezalocare(&cap, &coada); --tema
-    //LSI circuala - tema 
+    afisareListaCircularaCarti2(cap);
 
-    afisareListaCircularaCarti(cap, coada);
+    printf("\nCartea cea mai scumpa costa %.2f lei!", pretCarteMaximListaCirculara(cap));
 
-    printf("\nPretul maxim pentru o carte este %.2f lei!", pretMaximCarte(cap));
+    // dezalocare(&cap, &coada);
 
     return 0;
 }

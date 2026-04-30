@@ -147,7 +147,7 @@ float pretMediuDupaNrPagini(HashTable table, int nrPagini){
 int main()
 {
     HashTable tabela = initTabela(6);
-    inserareInTabela(tabela, initCarte("MiculPrint", 132, 35.2));
+    inserareInTabela(tabela, initCarte("Micul Print", 132, 35.2));
     inserareInTabela(tabela, initCarte("Nuntasii", 122, 46.9));
     inserareInTabela(tabela, initCarte("Dune Messiah", 122, 71.5));
     inserareInTabela(tabela, initCarte("Confess", 126, 34.3));

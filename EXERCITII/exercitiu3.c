@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -16,11 +18,11 @@ struct Nod{
     Nod *prev;
 };
 
-Student initStudent(char *nume, int varsta, float medie){
+Student initStudent(const char *nume, int varsta, float medie){
     Student student;
     student.medie=medie;
     student.varsta=varsta;
-    student.nume=(char*)malloc(sizeof(char)*strlen(nume)+1);
+    student.nume=(const char*)malloc(sizeof(const char)*(strlen(nume)+1));
     strcpy(student.nume, nume);
     return student;
 }

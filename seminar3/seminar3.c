@@ -82,14 +82,14 @@ void afisareListaCarti(Nod*cap)
     }
 }
 
-void dezalocare(Nod **cap){
+void dezalocare(Nod **cap)
+{
     while((*cap) != NULL){
         free((*cap)->info.titlu);
         Nod *aux= *cap;
         (*cap) = (*cap)->next;
         free(aux);
     }
-
 }
 
 float pretMediuCarte(Nod *cap){
