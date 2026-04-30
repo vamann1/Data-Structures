@@ -14,7 +14,6 @@ void citireCarte(FILE *file, Carte *carte)
 {
     char buffer[30];
     fscanf(file, "%s %d %f", buffer, &(*carte).nrPagini, &carte->pret);
-
     carte->titlu = (char *)malloc(sizeof(char) * (strlen(buffer) + 1));
     strcpy(carte->titlu, buffer);
 }
