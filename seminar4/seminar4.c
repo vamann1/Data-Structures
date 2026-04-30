@@ -129,6 +129,7 @@ float pretMediuCarte(Nod *cap)
 int main()
 {
     Nod *cap=NULL, *coada=NULL;
+    
     inserareLaSfarsit(&cap, &coada, initCarte("Micul print", 70, 20.5));
     inserareLaSfarsit(&cap, &coada, initCarte("Norwegian Wood", 650, 40.2));
     inserareLaSfarsit(&cap, &coada, initCarte("Picture of Dorian Gray", 234, 46.9));
