@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct Nod Nod;
 
@@ -56,33 +57,33 @@ void inserareInABC(Nod **radacina, Carte carte)
     }
 }
 
-void inordine(Nod *rad)
+void inOrdine(Nod *rad)
 {
     if (rad)
     {
-        inordine(rad->stanga);
-        afisareCarte(rad->info);
-        inordine(rad->dreapta);
+    inOrdine(rad->stanga);
+    afisareCarte(rad->info);
+    inOrdine(rad->dreapta);
     }
 }
 
-void preordine(Nod *rad)
+void preOrdine(Nod *rad)
 {
     if (rad)
     {
-        afisareCarte(rad->info);
-        preordine(rad->stanga);
-        preordine(rad->dreapta);
+    afisareCarte(rad->info);
+    preOrdine(rad->stanga);
+    preOrdine(rad->dreapta);
     }
 }
 
-void postordine(Nod *rad)
+void postOrdine(Nod *rad)
 {
     if (rad)
     {
-        postordine(rad->stanga);
-        postordine(rad->dreapta);
-        afisareCarte(rad->info);
+    postOrdine(rad->stanga);
+    postOrdine(rad->dreapta);
+    afisareCarte(rad->info);
     }
 }
 
@@ -134,7 +135,7 @@ int calculInaltimeArbore(Nod *rad)
     }
 }
 
-void main()
+int main()
 {
     // 7, 4, 10, 2, 6, 8, 11
 
@@ -147,8 +148,8 @@ void main()
     inserareInABC(&rad, initCarte(8, "Carte6", 210, 59));
     inserareInABC(&rad, initCarte(11, "Carte7", 190, 60));
 
-    printf("Parcurgere inordine: \n");
-    inordine(rad);
+    printf("Parcurgere inOrdine: \n");
+    inOrdine(rad);
 
     Carte carteCautata = cautareDupaId(rad, 8);
     printf("Carte cautata: \n");
@@ -158,4 +159,5 @@ void main()
     printf("\nInaltime arbore: %d", calculInaltimeArbore(rad));
 
     dezalocare(&rad);
+    return 0;
 }

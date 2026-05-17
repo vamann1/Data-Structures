@@ -182,7 +182,7 @@ void dezalocare(Nod **rad)
     }
 }
 
-void main()
+int main()
 {
     Nod *rad = NULL;
     inserareInBST(&rad, initPersoana(7, "Tudor", 20, 1.85));
@@ -212,4 +212,5 @@ void main()
     printf("\nInaltime arbore: %d", calculInaltimeArbore(rad));
 
     dezalocare(&rad);
+    return 0;
 }

@@ -222,7 +222,7 @@ void parcurgereInAdancime(NodPrincipal *graf, int idStart)
     free(vectorVizitate);
 }
 
-void main()
+int main()
 {
     NodPrincipal *graf = NULL;
     inserareListaPrincipala(&graf, initExamen(1, "SDD", 5));
@@ -243,4 +243,6 @@ void main()
 
     printf("\n Parcurgere in adancime:");
     parcurgereInAdancime(graf, 1);
+    
+    return 0;
 }
