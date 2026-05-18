@@ -1,17 +1,16 @@
-// max-heap pentru test
-// min-heap -> examen
-#include <stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct MaxHeap MaxHeap;
 
 typedef struct Carte
 {
+    int prioritate;
     char *titlu;
     int nrPagini;
     float pret;
-    int prioritate;
 } Carte;
 
 struct MaxHeap
@@ -37,48 +36,56 @@ void afisareCarte(Carte carte)
     printf("%d. Titlu: %s, nrPagini: %d, pret: %.2f. \n", carte.prioritate, carte.titlu, carte.nrPagini, carte.pret);
 }
 
-void traversareMaxHeap(MaxHeap heap){
-    for(int i =0; i < heap.size; i++)
+void traversareMaxHeap(MaxHeap heap)
+{
+    for (int i = 0; i < heap.size; i++)
     {
         afisareCarte(heap.vector[i]);
     }
 }
 
-void heapify(MaxHeap heap, int index){
-    if(heap.size > 0)
+void heapify(MaxHeap heap, int index)
+{
+    if (heap.size > 0)
     {
         int pozMax = index;
-        int pozSt = 2 * index+1;
-        int pozDr =  2 * index+2;
-        if(pozSt<heap.size && heap.vector[pozMax].prioritate < heap.vector[pozSt].prioritate){
+        int pozSt = 2 * index + 1;
+        int pozDr = 2 * index + 2;
+
+        if (pozSt < heap.size && heap.vector[pozMax].prioritate < heap.vector[pozSt].prioritate)
+        {
             pozMax = pozSt;
         }
 
-        if (pozDr < heap.size && heap.vector[pozMax].prioritate < heap.vector[pozDr].prioritate){
+        if (pozDr < heap.size && heap.vector[pozMax].prioritate < heap.vector[pozDr].prioritate)
+        {
             pozMax = pozDr;
         }
 
-        if(pozMax != index){
-            Carte aux  = heap.vector[pozMax];
+        if (pozMax != index)
+        {
+            Carte aux = heap.vector[pozMax];
             heap.vector[pozMax] = heap.vector[index];
             heap.vector[index] = aux;
 
-            if(pozMax <= heap.size/2-1) {
+            if (pozMax <= heap.size / 2 - 1)
+            {
                 heapify(heap, pozMax);
             }
         }
     }
 }
 
-void extragereCarteDinMaxHeap(MaxHeap *heap, Carte *c){
-    *c = initCarte(heap->vector[0].prioritate, heap->vector[0].titlu, heap->vector[0].nrPagini, heap->vector[0].pret);
+void extragereCarteDinMaxHeap(MaxHeap *heap, Carte *c)
+{
+    *c = initCarte(heap->vector[0].prioritate, heap->vector[0].titlu,
+                   heap->vector[0].nrPagini, heap->vector[0].pret);
     Carte aux = heap->vector[0];
-    heap->vector[0] = heap->vector[heap->size-1];
-    heap->vector[heap->size-1] = aux;
+    heap->vector[0] = heap->vector[heap->size - 1];
+    heap->vector[heap->size - 1] = aux;
     heap->size--;
     heapify(*heap, 0);
 }
-
 
 int main()
 {
@@ -94,32 +101,33 @@ int main()
     heap.vector[5] = initCarte(6, "Carte6", 210, 59);
     heap.vector[6] = initCarte(7, "Carte7", 190, 60);
 
-    printf("\nForma initiala: \n");
+    printf("\n Forma initiala: \n");
     traversareMaxHeap(heap);
 
-    for(int i = heap.size/2 - 1; i >= 0; i--){
+    for (int i = heap.size / 2 - 1; i >= 0; i--)
+    {
         heapify(heap, i);
     }
 
-    printf("\nForma finala: \n");
+    printf("\n MaxHeap valid: \n");
     traversareMaxHeap(heap);
 
-    printf("\nExtragere carti din Max Heap: \n");
+    printf("\n Extragere carti din max heap: \n");
     Carte c;
-    while (heap.size != 0){
+    while (heap.size != 0)
+    {
         extragereCarteDinMaxHeap(&heap, &c);
         afisareCarte(c);
         free(c.titlu);
     }
 
-    printf("\nMaxHeap in ordine crescatoare: \n");
-    for(int i = 0; i<initialSize; i++){
+    printf("\n MaxHeap in ordine crescatoare: \n");
+    for (int i = 0; i < initialSize; i++)
+    {
         afisareCarte(heap.vector[i]);
         free(heap.vector[i].titlu);
     }
-
     free(heap.vector);
-
-
+    
     return 0;
 }

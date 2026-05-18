@@ -84,22 +84,23 @@ int diferentaInaltimiSubarbori(Nod *rad)
     return calculInaltimeArbore(rad->st) - calculInaltimeArbore(rad->dr);
 }
 
-void parcurgereInOrdine(Nod *rad, int *index)
+void parcurgereInOrdine(Nod *rad)
 {
     if (rad)
     {
-        parcurgereInOrdine(rad->st, index);
+        parcurgereInOrdine(rad->st);
         afisareCarte(rad->info);
-        parcurgereInOrdine(rad->dr, index);
+        parcurgereInOrdine(rad->dr);
     }
 }
 
-Carte *conversieLaLista(Nod *rad, int count){
-    Carte *listaCarti = (Carte *)malloc(count*sizeof(Carte));
-    
+void conversieLaLista(Nod *rad, Carte **listaCarti, int *index){
+    if(rad){
+        conversieLaLista(rad->st, listaCarti, index);
+        (*listaCarti)[(*index)++] = rad->info;
+        conversieLaLista(rad->dr, listaCarti, index);
+    }
 
-
-    return listaCarti;
 }
 void inserareInAVL(Nod **rad, Carte c){
     if((*rad)==NULL)
@@ -146,8 +147,6 @@ Carte cautareDupaId(Nod *rad, int id){
         return cautareDupaId(rad->dr, id);
 }
 
-
-
 void parcurgerePreOrdine(Nod *rad){
     if(rad){
         afisareCarte(rad->info);
@@ -164,6 +163,16 @@ void parcurgerePostOrdine(Nod *rad){
     }
 }
 
+void dezalocare(Nod **rad)
+{
+    if (*rad)
+    {
+        dezalocare(&(*rad)->st);
+        dezalocare(&(*rad)->dr);
+        free((*rad)->info.titlu);
+        free(*rad);
+    }
+}
 
 int main(){
     Nod *radacina=NULL;
@@ -175,11 +184,10 @@ int main(){
     inserareInAVL(&radacina, initCarte(4, "Baltagul", 198, 29.99));
     inserareInAVL(&radacina, initCarte(5, "Maitreyi", 256, 34.99));
     inserareInAVL(&radacina, initCarte(7, "Ultima noapte",301, 41.99));
-    inserareInAVL(&radacina, initCarte(7, "Razboiul", 200, 45));
+    inserareInAVL(&radacina, initCarte(8, "Razboiul", 200, 45));
 
-    int dummy = 0 ;
     printf("\nParcurgere inordine: ");
-    parcurgereInOrdine(radacina, dummy);
+    parcurgereInOrdine(radacina);
 
     printf("\nParcurgere preordine: ");
     parcurgerePreOrdine(radacina);
@@ -195,5 +203,13 @@ int main(){
     afisareCarte(c);
     free(c.titlu);
 
+    printf("\nConversie la lista: ");
+    Carte *listaCarti = (Carte *)malloc(8 * sizeof(Carte));
+    int index = 0;
+    conversieLaLista(radacina, &listaCarti, &index);
 
+    for (int i = 0; i < index; i++){
+        afisareCarte(listaCarti[i]);
+    }
+    free(listaCarti);
 }
