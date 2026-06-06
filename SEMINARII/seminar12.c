@@ -128,10 +128,10 @@ void inserareListaPrincipala(NodPrincipal **cap, Examen examen)
     }
 }
 
-void inserareListaSecundara(NodSecundar **cap, NodPrincipal *info)
+void inserareListaSecundara(NodSecundar **cap, NodPrincipal *vecin)
 {
     NodSecundar *nou = (NodSecundar *)malloc(sizeof(NodSecundar));
-    nou->info = info;
+    nou->info = vecin;
     nou->next = NULL;
     if (*cap)
     {
@@ -198,6 +198,7 @@ void parcurgereInAdancime(NodPrincipal *graf, int idStart)
     {
         vectorVizitate[i] = 0;
     }
+    
     ListaDubla stiva;
     stiva.first = stiva.last = NULL;
     push(&stiva, idStart);
