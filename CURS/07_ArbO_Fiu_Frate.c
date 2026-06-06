@@ -7,7 +7,8 @@ struct NodTree {
 };
 
 void cautaNod(struct NodTree* r, int id, struct NodTree** gasit) {
-	if (r) {
+	if (r) 
+	{
 		printf("Nod curent este: %d\n", r->key);
 		if (r->key == id) { // prelucrez nodul curent r
 			*gasit = r;

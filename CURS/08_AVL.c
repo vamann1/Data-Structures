@@ -37,7 +37,8 @@ int h(NodAVL* r) {
 
 // gradul de echilibru al unui nod
 void calculGENod(NodAVL* r) {
-	if (r) {
+	if (r) 
+    {
 		//prelucrare (calcul GE)
 		r->GE = h(r->dr) - h(r->st);
 	}
