@@ -1,13 +1,14 @@
-# Compiled binaries
+
 SEMINARII/**/seminar[0-9]
 SEMINARII/**/seminar[0-9][0-9]
 EXERCITII/**/exercitiu[0-9]
 EXERCITII/**/exercitiu[0-9][0-9]
 
-# Mac junk
+
 .DS_Store
 *.DSYM
 
-# Optional: object files and build artifacts
+
 *.o
 *.out
+.DS_Store

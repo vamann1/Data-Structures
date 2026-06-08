@@ -31,7 +31,8 @@ void cautaNod(struct NodTree* r, int id, struct NodTree** gasit) {
 
 
 void preordine(struct NodTree* r) {
-	if (r) {
+	if (r) 
+	{
 		printf("%d  ", r->key); // prelucrare nod curent r
 
 		preordine(r->fiu); // parsez primul subarbore descendent lui r	
